@@ -1,4 +1,4 @@
-version: "3.1"
+version: "2.1"
 
 services:
   database:
@@ -10,10 +10,8 @@ services:
       POSTGRES_DB: atsea
     ports:
       - "5432:5432" 
-    networks:
-      - back-tier
-    secrets:
-      - postgres_password
+
+
 
   appserver:
     build:
@@ -23,18 +21,4 @@ services:
     ports:
       - "8080:8080"
       - "5005:5005"
-    networks:
-      - front-tier
-      - back-tier
-    secrets:
-      - postgres_password
 
-secrets:
-  postgres_password:
-    file: ./devsecrets/postgres_password
-    
-networks:
-  front-tier:
-  back-tier:
-  payment:
-    driver: overlay
